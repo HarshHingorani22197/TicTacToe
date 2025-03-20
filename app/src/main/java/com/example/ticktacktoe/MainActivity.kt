@@ -1,5 +1,7 @@
 package com.example.ticktacktoe
 
+import GameScreen
+import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,7 +38,14 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = "loginScreen", modifier = modifier) {
         composable("loginScreen") { LoginScreen(navController) }
-        // Add other screens here, e.g., composable("gameScreen") { GameScreen(navController) }
+
+        // Accept player names as arguments
+        composable("gameScreen/{playerX}/{playerO}") { backStackEntry ->
+            val playerX = backStackEntry.arguments?.getString("playerX") ?: "Player X"
+            val playerO = backStackEntry.arguments?.getString("playerO") ?: "Player O"
+
+            GameScreen(navController, playerX, playerO)
+        }
     }
 }
 
