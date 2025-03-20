@@ -10,8 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.StrokeCap
 //import androidx.compose.ui.graphics.drawscope.drawLine
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -127,18 +129,23 @@ fun TicTacToeBoard(board: List<List<String>>, onCellClick: (Int, Int) -> Unit, w
     Box(
         modifier = Modifier
             .size(300.dp)
-            .drawBehind {
+            .drawWithContent {
+                drawContent() // Draws the X and O symbols first
+
                 winningLine?.let { line ->
-                    val startX = line.first().second * size.width / 3 + size.width / 6
-                    val startY = line.first().first * size.height / 3 + size.height / 6
-                    val endX = line.last().second * size.width / 3 + size.width / 6
-                    val endY = line.last().first * size.height / 3 + size.height / 6
+                    val cellSize = size.width / 3
+                    val startX = line.first().second * cellSize + cellSize / 2
+                    val startY = line.first().first * cellSize + cellSize / 2
+                    val endX = line.last().second * cellSize + cellSize / 2
+                    val endY = line.last().first * cellSize + cellSize / 2
 
                     drawLine(
-                        color = Color.Red,
+                        color = Color.Red.copy(alpha = 0.8f),
                         start = Offset(startX, startY),
-                        end = Offset(startX + (endX - startX) * animatedProgress.value, startY + (endY - startY) * animatedProgress.value),
-                        strokeWidth = 8f
+                        end = Offset(startX + (endX - startX) * animatedProgress.value,
+                            startY + (endY - startY) * animatedProgress.value),
+                        strokeWidth = 12f,
+                        cap = StrokeCap.Round
                     )
                 }
             }
