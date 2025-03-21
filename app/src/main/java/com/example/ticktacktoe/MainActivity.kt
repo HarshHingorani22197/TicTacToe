@@ -1,6 +1,7 @@
 package com.example.ticktacktoe
 
 import GameScreen
+import GameScreen2
 import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -46,7 +47,12 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
 
             GameScreen(navController, playerX, playerO)
         }
+
+        composable("gameScreen2/{playerX}/{playerO}") { backStackEntry ->
+            val playerX = backStackEntry.arguments?.getString("playerX") ?: "Player X"
+            val playerO = backStackEntry.arguments?.getString("playerO") ?: "Player O"
+
+            GameScreen2(navController, playerX, playerO)
+        }
     }
 }
-
-

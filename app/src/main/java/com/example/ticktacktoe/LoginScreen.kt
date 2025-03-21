@@ -73,14 +73,24 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text("Start Game", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onPrimary)
+            Text("Start a Normal Game", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onPrimary)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Start Infinite Game Button
+        Button(
+            onClick = {
+                if (playerX.isNotEmpty() && playerO.isNotEmpty()) {
+                    navController.navigate("GameScreen2/${playerX}/${playerO}")
+                } else {
+                    Toast.makeText(context, "Enter both player names!", Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+        ) {
+            Text("Start an Infinite Game", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onSecondary)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    val navController = rememberNavController()
-    LoginScreen(navController)
 }
