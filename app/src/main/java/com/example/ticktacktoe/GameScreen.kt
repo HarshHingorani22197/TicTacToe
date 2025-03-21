@@ -1,5 +1,4 @@
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,18 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.StrokeCap
-//import androidx.compose.ui.graphics.drawscope.drawLine
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.ticktacktoe.R
 
 @Composable
 fun GameScreen(navController: NavController, playerX: String, playerO: String) {
@@ -67,7 +59,7 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Tic Tac Toe Board with Winning Line Animation
+        // Tic Tac Toe Board with winning cells highlighted
         TicTacToeBoard(board, { i, j ->
             if (board[i][j].isEmpty() && winner == null) {
                 board = board.mapIndexed { rowIndex, row ->
@@ -117,63 +109,35 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
 
 @Composable
 fun TicTacToeBoard(board: List<List<String>>, onCellClick: (Int, Int) -> Unit, winningLine: List<Pair<Int, Int>>?) {
-    val animatedProgress = remember { Animatable(0f) }
-
-    LaunchedEffect(winningLine) {
-        if (winningLine != null) {
-            animatedProgress.snapTo(0f)
-            animatedProgress.animateTo(1f, animationSpec = tween(durationMillis = 500))
-        }
-    }
-
-    Box(
-        modifier = Modifier
-            .size(300.dp)
-            .drawWithContent {
-                drawContent() // Draws the X and O symbols first
-
-                winningLine?.let { line ->
-                    val cellSize = size.width / 3
-                    val startX = line.first().second * cellSize + cellSize / 2
-                    val startY = line.first().first * cellSize + cellSize / 2
-                    val endX = line.last().second * cellSize + cellSize / 2
-                    val endY = line.last().first * cellSize + cellSize / 2
-
-                    drawLine(
-                        color = Color.Red.copy(alpha = 0.8f),
-                        start = Offset(startX, startY),
-                        end = Offset(startX + (endX - startX) * animatedProgress.value,
-                            startY + (endY - startY) * animatedProgress.value),
-                        strokeWidth = 12f,
-                        cap = StrokeCap.Round
-                    )
-                }
-            }
-    ) {
-        Column {
-            for (i in 0..2) {
-                Row {
-                    for (j in 0..2) {
-                        Box(
-                            modifier = Modifier
-                                .size(100.dp)
-                                .padding(4.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
-                                .clickable(enabled = board[i][j].isEmpty() && winningLine == null) {
-                                    onCellClick(i, j)
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = board[i][j],
-                                fontSize = 36.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = when (board[i][j]) {
-                                    "X" -> MaterialTheme.colorScheme.primary
-                                    "O" -> MaterialTheme.colorScheme.secondary
-                                    else -> MaterialTheme.colorScheme.onSurface
-                                }
+    Column {
+        for (i in 0..2) {
+            Row {
+                for (j in 0..2) {
+                    val isWinningCell = winningLine?.contains(i to j) == true
+                    Box(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(4.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(
+                                if (isWinningCell) Color.Green.copy(alpha = 0.5f)
+                                else MaterialTheme.colorScheme.surfaceVariant
+                            )
+                            .clickable(enabled = board[i][j].isEmpty() && winningLine == null) {
+                                onCellClick(i, j)
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        when (board[i][j]) {
+                            "X" -> Image(
+                                painter = painterResource(id = R.drawable.cross),
+                                contentDescription = "X",
+                                modifier = Modifier.size(64.dp)
+                            )
+                            "O" -> Image(
+                                painter = painterResource(id = R.drawable.circle),
+                                contentDescription = "O",
+                                modifier = Modifier.size(64.dp)
                             )
                         }
                     }
@@ -188,7 +152,8 @@ fun PlayerIndicator(name: String, symbol: String, isActive: Boolean, symbolColor
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .width(120.dp)
+            .width(130.dp)
+            .height(110.dp)
             .padding(8.dp)
             .background(
                 if (isActive) bgColor else MaterialTheme.colorScheme.surfaceVariant,
@@ -201,11 +166,11 @@ fun PlayerIndicator(name: String, symbol: String, isActive: Boolean, symbolColor
             style = MaterialTheme.typography.titleMedium,
             color = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
         )
-        Text(
-            text = symbol,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.Bold,
-            color = symbolColor
+        Spacer(modifier = Modifier.height(7.dp))
+        Image(
+            painter = painterResource(id = if (symbol == "X") R.drawable.cross else R.drawable.circle),
+            contentDescription = symbol,
+            modifier = Modifier.size(36.dp)
         )
     }
 }
