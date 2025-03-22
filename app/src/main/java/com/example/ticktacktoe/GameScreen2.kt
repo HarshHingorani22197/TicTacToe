@@ -61,8 +61,8 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
                 name = playerO,
                 symbol = "O",
                 isActive = currentPlayer == "O",
-                symbolColor = MaterialTheme.colorScheme.secondary,
-                bgColor = MaterialTheme.colorScheme.secondaryContainer
+                symbolColor = MaterialTheme.colorScheme.primary,
+                bgColor = MaterialTheme.colorScheme.primaryContainer
             )
         }
 

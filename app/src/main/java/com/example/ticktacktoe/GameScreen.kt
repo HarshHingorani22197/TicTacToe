@@ -20,6 +20,7 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
     var currentPlayer by remember { mutableStateOf("X") }
     var winner by remember { mutableStateOf<String?>(null) }
     var winningLine by remember { mutableStateOf<List<Pair<Int, Int>>?>(null) }
+    var isDraw by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -52,16 +53,16 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
                 name = playerO,
                 symbol = "O",
                 isActive = currentPlayer == "O",
-                symbolColor = MaterialTheme.colorScheme.secondary,
-                bgColor = MaterialTheme.colorScheme.secondaryContainer
+                symbolColor = MaterialTheme.colorScheme.primary,
+                bgColor = MaterialTheme.colorScheme.primaryContainer
             )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Tic Tac Toe Board with winning cells highlighted
+        // Tic Tac Toe Board
         TicTacToeBoard(board, { i, j ->
-            if (board[i][j].isEmpty() && winner == null) {
+            if (board[i][j].isEmpty() && winner == null && !isDraw) {
                 board = board.mapIndexed { rowIndex, row ->
                     row.mapIndexed { colIndex, cell ->
                         if (rowIndex == i && colIndex == j) currentPlayer else cell
@@ -73,6 +74,8 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
                 if (result != null) {
                     winner = if (result.first == "X") playerX else playerO
                     winningLine = result.second
+                } else if (board.flatten().all { it.isNotEmpty() }) {
+                    isDraw = true
                 } else {
                     currentPlayer = if (currentPlayer == "X") "O" else "X"
                 }
@@ -81,12 +84,17 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Winner Message
-        winner?.let {
-            Text(
-                text = "$it Wins!",
+        // Winner or Draw Message
+        when {
+            winner != null -> Text(
+                text = "$winner Wins!",
                 style = MaterialTheme.typography.headlineMedium,
-                color = if (currentPlayer == "X") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.primary
+            )
+            isDraw -> Text(
+                text = "Game Drawn!",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.primary
             )
         }
 
@@ -99,6 +107,7 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
                 currentPlayer = "X"
                 winner = null
                 winningLine = null
+                isDraw = false
             },
             modifier = Modifier.fillMaxWidth()
         ) {
