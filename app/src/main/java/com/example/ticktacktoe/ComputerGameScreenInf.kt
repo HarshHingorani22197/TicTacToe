@@ -68,7 +68,7 @@ fun ComputerGameScreenInf(navController: NavController, player: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "TIC TAC TOE (Limited Moves)",
+            text = "TIC TAC TOE",
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontSize = 38.sp,
                 fontWeight = FontWeight.Black,

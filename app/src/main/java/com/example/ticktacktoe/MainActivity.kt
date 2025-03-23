@@ -4,6 +4,8 @@ import ComputerGameScreenInf
 import GameScreen
 import GameScreen2
 import LoginScreen
+import Vs_Comp
+import Two_player
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -44,7 +46,8 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = "loginScreen", modifier = modifier) {
         composable("loginScreen") { LoginScreen(navController) }
-
+        composable("twoplayer") { Two_player(navController) }
+        composable ("vs_comp"){ Vs_Comp(navController) }
         composable("gameScreen/{playerX}/{playerO}") { backStackEntry ->
             val playerX = backStackEntry.arguments?.getString("playerX") ?: "Player X"
             val playerO = backStackEntry.arguments?.getString("playerO") ?: "Player O"
@@ -60,14 +63,14 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         // New screen for playing against the computer
-        composable("computerGameScreen/guneet") { backStackEntry ->
+        composable("computerGameScreen/{player}") { backStackEntry ->
             val player = backStackEntry.arguments?.getString("player") ?: "Player"
 
             ComputerGameScreen(navController, player)
         }
 
         // New screen for playing against the computer
-        composable("computerGameScreenInf/guneet") { backStackEntry ->
+        composable("computerGameScreenInf/{player}") { backStackEntry ->
             val player = backStackEntry.arguments?.getString("player") ?: "Player"
 
             ComputerGameScreenInf(navController, player)

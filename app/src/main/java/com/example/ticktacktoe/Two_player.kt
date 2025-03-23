@@ -1,4 +1,3 @@
-import android.widget.Toast
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -11,29 +10,27 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.ticktacktoe.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.example.ticktacktoe.R
+import androidx.navigation.NavController
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun Two_player(navController: NavController) {
     var playerX by remember { mutableStateOf("") }
     var playerO by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     val coroutineScope = rememberCoroutineScope()
 
-    // Animated Title Text
+    // Typing Effect for Title
     var displayedText by remember { mutableStateOf("") }
     val fullText = "TIC TAC TOE"
 
@@ -45,7 +42,7 @@ fun LoginScreen(navController: NavController) {
         }
     }
 
-    // Rotating Logo Animation
+    // Logo Rotation Animation
     val rotation = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
         rotation.animateTo(
@@ -67,7 +64,6 @@ fun LoginScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Animated Title
             Text(
                 text = displayedText,
                 style = MaterialTheme.typography.headlineLarge.copy(
@@ -80,7 +76,6 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Animated Rotating Logo
             Box(
                 modifier = Modifier
                     .size(160.dp)
@@ -100,7 +95,7 @@ fun LoginScreen(navController: NavController) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.applogo),
+                    painterResource(id = R.drawable.applogo),
                     contentDescription = "App Logo",
                     modifier = Modifier.size(100.dp),
                     tint = Color.Unspecified
@@ -109,12 +104,39 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Player Name Input Fields
+            listOf("Player X" to Color(0xFF7B4F50), "Player O" to Color(0xFF7B4F50)).forEach { (label, color) ->
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = label,
+                        color = color,
+                        style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
+                        modifier = Modifier.align(Alignment.Start) // Align label to the left
+                    )
+                    OutlinedTextField(
+                        value = if (label == "Player X") playerX else playerO,
+                        onValueChange = { if (label == "Player X") playerX = it else playerO = it },
+                        placeholder = { Text("Enter name", color = Color.LightGray) },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start), // Ensures left alignment
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                            .border(BorderStroke(2.dp, color), shape = RoundedCornerShape(6.dp))
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 2 Players Button
+            // Start Normal Game Button
             Button(
                 onClick = {
-                    navController.navigate("twoplayer")
+                    if (playerX.isEmpty()) playerX = "Player 1"
+                    if (playerO.isEmpty()) playerO = "Player 2"
+                    navController.navigate("GameScreen/${playerX}/${playerO}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -123,15 +145,21 @@ fun LoginScreen(navController: NavController) {
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
             ) {
-                Text("Vs Friend", fontSize = 18.sp, color = Color.White)
+                Text(
+                    "Start Normal Game",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Vs Computer Button
+            // Start Infinite Game Button
             Button(
                 onClick = {
-                    navController.navigate("vs_comp")
+                    if (playerX.isEmpty()) playerX = "Player 1"
+                    if (playerO.isEmpty()) playerO = "Player 2"
+                    navController.navigate("GameScreen2/${playerX}/${playerO}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -140,14 +168,18 @@ fun LoginScreen(navController: NavController) {
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
             ) {
-                Text("Vs Computer", fontSize = 18.sp, color = Color.White)
+                Text(
+                    "Start Infinite Game",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Start Computer Game Button
+
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewLoginScreen() {
-    LoginScreen(navController = rememberNavController())
-}
