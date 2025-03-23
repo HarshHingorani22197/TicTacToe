@@ -38,7 +38,6 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
                 fontSize = 42.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 2.sp,
-                shadow = Shadow(color = Color.Black, blurRadius = 4f)
             ),
             color = Color(0xFF7B4F50),
             modifier = Modifier

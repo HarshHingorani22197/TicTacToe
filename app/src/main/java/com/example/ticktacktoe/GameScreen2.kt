@@ -39,7 +39,6 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
                 fontSize = 42.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 2.sp,
-                shadow = Shadow(color = Color.Black, blurRadius = 4f)
             ),
             color = Color(0xFF7B4F50),
             modifier = Modifier
@@ -104,7 +103,7 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
         ) {
-            Text("Restart Game", style = MaterialTheme.typography.headlineMedium, color = Color.White)
+            Text("Restart Game", style = MaterialTheme.typography.titleLarge, color = Color.White)
         }
     }
 }
