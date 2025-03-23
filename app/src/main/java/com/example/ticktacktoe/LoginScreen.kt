@@ -14,8 +14,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,10 +32,9 @@ fun LoginScreen(navController: NavController) {
     var playerX by remember { mutableStateOf("") }
     var playerO by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
-    // Typing Effect State
+    // Typing Effect for Title
     var displayedText by remember { mutableStateOf("") }
     val fullText = "TIC TAC TOE"
 
@@ -45,8 +46,8 @@ fun LoginScreen(navController: NavController) {
         }
     }
 
+    // Logo Rotation Animation
     val rotation = remember { Animatable(0f) }
-
     LaunchedEffect(Unit) {
         rotation.animateTo(
             targetValue = 360f,
@@ -57,15 +58,13 @@ fun LoginScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFF3E1F47), Color(0xFF6C3483))
-                )
-            )
+            .background(Color(0xFFFBF3ED)) // Light Cream Background
             .padding(24.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -77,7 +76,7 @@ fun LoginScreen(navController: NavController) {
                     letterSpacing = 2.sp,
                     shadow = Shadow(color = Color.Black, blurRadius = 4f)
                 ),
-                color = Color.White
+                color = Color(0xFF7B4F50) // Darker shade for contrast
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -86,14 +85,14 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier
                     .size(160.dp)
                     .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.2f))
-                    .border(4.dp, Color.White, CircleShape)
+                    .background(Color(0xFFFF7B7B).copy(alpha = 0.2f)) // Light Transparent Red
+                    .border(4.dp, Color(0xFFFF7B7B), CircleShape)
                     .clickable {
                         coroutineScope.launch {
                             rotation.snapTo(0f)
                             rotation.animateTo(
                                 targetValue = 360f,
-                                animationSpec = tween(durationMillis = 3000, easing = EaseInOut)
+                                animationSpec = tween(durationMillis = 2000, easing = EaseInOut)
                             )
                         }
                     }
@@ -110,50 +109,75 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            listOf("Player X" to Color(0xFFE57373), "Player O" to Color(0xFF4FC3F7)).forEach { (label, color) ->
-                Text(text = label, color = color, style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp))
-                OutlinedTextField(
-                    value = if (label == "Player X") playerX else playerO,
-                    onValueChange = { if (label == "Player X") playerX = it else playerO = it },
-                    placeholder = { Text("Enter name", color = Color.LightGray) },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                        .border(BorderStroke(2.dp, color), shape = RoundedCornerShape(12.dp))
-                )
+            // Player Name Input Fields
+            listOf("Player X" to Color(0xFF7B4F50), "Player O" to Color(0xFF7B4F50)).forEach { (label, color) ->
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = label,
+                        color = color,
+                        style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
+                        modifier = Modifier.align(Alignment.Start) // Align label to the left
+                    )
+                    OutlinedTextField(
+                        value = if (label == "Player X") playerX else playerO,
+                        onValueChange = { if (label == "Player X") playerX = it else playerO = it },
+                        placeholder = { Text("Enter name", color = Color.LightGray) },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start), // Ensures left alignment
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                            .border(BorderStroke(2.dp, color), shape = RoundedCornerShape(6.dp))
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Start Normal Game Button
             Button(
                 onClick = {
                     if (playerX.isEmpty()) playerX = "Player 1"
                     if (playerO.isEmpty()) playerO = "Player 2"
-                    navController.navigate("GameScreen/${"Player-X"}/${"Player-O"}")
+                    navController.navigate("GameScreen/${playerX}/${playerO}")
                 },
-                modifier = Modifier.fillMaxWidth().height(56.dp).shadow(8.dp, RoundedCornerShape(12.dp)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .shadow(8.dp, RoundedCornerShape(12.dp)),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD81B60))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
             ) {
-                Text("Start Normal Game", style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp), color = Color.White)
+                Text(
+                    "Start Normal Game",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Start Infinite Game Button
             Button(
                 onClick = {
                     if (playerX.isEmpty()) playerX = "Player 1"
                     if (playerO.isEmpty()) playerO = "Player 2"
-                    navController.navigate("GameScreen2/${"Player-X"}/${"Player-O"}")
+                    navController.navigate("GameScreen2/${playerX}/${playerO}")
                 },
-                modifier = Modifier.fillMaxWidth().height(56.dp).shadow(8.dp, RoundedCornerShape(12.dp)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .shadow(8.dp, RoundedCornerShape(12.dp)),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
             ) {
-                Text("Start Infinite Game", style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp), color = Color.White)
+                Text(
+                    "Start Infinite Game",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
             }
         }
     }

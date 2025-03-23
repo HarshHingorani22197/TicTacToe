@@ -9,8 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ticktacktoe.R
 
@@ -25,14 +28,22 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(Color(0xFFFBF3ED)) // Set background color
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Tic Tac Toe",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary
+            text ="TIC TAC TOE",
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontSize = 42.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = 2.sp,
+                shadow = Shadow(color = Color.Black, blurRadius = 4f)
+            ),
+            color = Color(0xFF7B4F50),
+            modifier = Modifier
+                .padding(bottom = 25.dp, top = 50.dp),
+
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -42,20 +53,8 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            PlayerIndicator(
-                name = playerX,
-                symbol = "X",
-                isActive = currentPlayer == "X",
-                symbolColor = MaterialTheme.colorScheme.primary,
-                bgColor = MaterialTheme.colorScheme.primaryContainer
-            )
-            PlayerIndicator(
-                name = playerO,
-                symbol = "O",
-                isActive = currentPlayer == "O",
-                symbolColor = MaterialTheme.colorScheme.primary,
-                bgColor = MaterialTheme.colorScheme.primaryContainer
-            )
+            PlayerIndicator(name = playerX, symbol = "X", isActive = currentPlayer == "X")
+            PlayerIndicator(name = playerO, symbol = "O", isActive = currentPlayer == "O")
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -89,12 +88,12 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
             winner != null -> Text(
                 text = "$winner Wins!",
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = Color(0xFF7B7B7B)
             )
             isDraw -> Text(
                 text = "Game Drawn!",
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = Color(0xFF7B7B7B)
             )
         }
 
@@ -109,9 +108,10 @@ fun GameScreen(navController: NavController, playerX: String, playerO: String) {
                 winningLine = null
                 isDraw = false
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.elevatedButtonColors(containerColor = Color(0xFFFF7B7B))
         ) {
-            Text("Restart Game", style = MaterialTheme.typography.titleLarge)
+            Text("Restart Game", style = MaterialTheme.typography.titleLarge, color = Color.White)
         }
     }
 }
@@ -130,7 +130,7 @@ fun TicTacToeBoard(board: List<List<String>>, onCellClick: (Int, Int) -> Unit, w
                             .clip(RoundedCornerShape(12.dp))
                             .background(
                                 if (isWinningCell) Color.Green.copy(alpha = 0.5f)
-                                else MaterialTheme.colorScheme.surfaceVariant
+                                else Color(0x33FF7B7B)
                             )
                             .clickable(enabled = board[i][j].isEmpty() && winningLine == null) {
                                 onCellClick(i, j)
@@ -157,7 +157,7 @@ fun TicTacToeBoard(board: List<List<String>>, onCellClick: (Int, Int) -> Unit, w
 }
 
 @Composable
-fun PlayerIndicator(name: String, symbol: String, isActive: Boolean, symbolColor: Color, bgColor: Color) {
+fun PlayerIndicator(name: String, symbol: String, isActive: Boolean) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -165,7 +165,8 @@ fun PlayerIndicator(name: String, symbol: String, isActive: Boolean, symbolColor
             .height(110.dp)
             .padding(8.dp)
             .background(
-                if (isActive) bgColor else MaterialTheme.colorScheme.surfaceVariant,
+                if (isActive) Color(0xFFFF7B7B).copy(alpha = 0.2f) // Highlighted background
+                else Color(0xFFFBF3ED), // Normal background
                 RoundedCornerShape(12.dp)
             )
             .padding(12.dp)
@@ -173,7 +174,7 @@ fun PlayerIndicator(name: String, symbol: String, isActive: Boolean, symbolColor
         Text(
             text = name,
             style = MaterialTheme.typography.titleMedium,
-            color = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+            color = if (isActive) Color(0xFFFF7B7B) else Color(0xFF7B4F50)
         )
         Spacer(modifier = Modifier.height(7.dp))
         Image(

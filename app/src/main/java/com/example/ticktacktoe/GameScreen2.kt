@@ -1,20 +1,15 @@
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,14 +29,21 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(Color(0xFFFBF3ED)) // Light Cream Background
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Tic Tac Toe",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary
+            text ="TIC TAC TOE",
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontSize = 42.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = 2.sp,
+                shadow = Shadow(color = Color.Black, blurRadius = 4f)
+            ),
+            color = Color(0xFF7B4F50),
+            modifier = Modifier
+                .padding(bottom = 25.dp, top = 50.dp),
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -53,16 +55,12 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
             PlayerIndicators(
                 name = playerX,
                 symbol = "X",
-                isActive = currentPlayer == "X",
-                symbolColor = MaterialTheme.colorScheme.primary,
-                bgColor = MaterialTheme.colorScheme.primaryContainer
+                isActive = currentPlayer == "X"
             )
             PlayerIndicators(
                 name = playerO,
                 symbol = "O",
-                isActive = currentPlayer == "O",
-                symbolColor = MaterialTheme.colorScheme.primary,
-                bgColor = MaterialTheme.colorScheme.primaryContainer
+                isActive = currentPlayer == "O"
             )
         }
 
@@ -87,22 +85,26 @@ fun GameScreen2(navController: NavController, playerX: String, playerO: String) 
             Text(
                 text = "$it Wins!",
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = Color(0xFFFF7B7B) // Red Highlight
             )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        ElevatedButton(onClick = {
-            board = List(3) { MutableList(3) { "" } }
-            currentPlayer = "X"
-            winner = null
-            winningLine = null
-            moveHistory.clear()
-            moveHistory["X"] = LinkedList()
-            moveHistory["O"] = LinkedList()
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text("Restart Game", style = MaterialTheme.typography.titleLarge)
+        ElevatedButton(
+            onClick = {
+                board = List(3) { MutableList(3) { "" } }
+                currentPlayer = "X"
+                winner = null
+                winningLine = null
+                moveHistory.clear()
+                moveHistory["X"] = LinkedList()
+                moveHistory["O"] = LinkedList()
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
+        ) {
+            Text("Restart Game", style = MaterialTheme.typography.headlineMedium, color = Color.White)
         }
     }
 }
@@ -134,11 +136,7 @@ fun TicTacToeBoard2(
         }
     }
 
-    Box(modifier = Modifier
-        .size(300.dp)
-
-
-    ) {
+    Box(modifier = Modifier.size(300.dp)) {
         Column {
             for (i in 0..2) {
                 Row {
@@ -151,7 +149,7 @@ fun TicTacToeBoard2(
                                 .clip(RoundedCornerShape(12.dp))
                                 .background(
                                     if (isWinningCell) Color.Green.copy(alpha = 0.5f)
-                                    else MaterialTheme.colorScheme.surfaceVariant
+                                    else Color(0xFFFF7B7B).copy(alpha = 0.2f) // Light Transparent Red
                                 )
                                 .clickable(enabled = board[i][j].isEmpty() && winningLine == null) {
                                     onCellClick(i, j)
@@ -179,7 +177,7 @@ fun TicTacToeBoard2(
 }
 
 @Composable
-fun PlayerIndicators(name: String, symbol: String, isActive: Boolean, symbolColor: Color, bgColor: Color) {
+fun PlayerIndicators(name: String, symbol: String, isActive: Boolean) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -187,7 +185,8 @@ fun PlayerIndicators(name: String, symbol: String, isActive: Boolean, symbolColo
             .height(110.dp)
             .padding(8.dp)
             .background(
-                if (isActive) bgColor else MaterialTheme.colorScheme.surfaceVariant,
+                if (isActive) Color(0xFFFF7B7B).copy(alpha = 0.2f) // Highlighted background
+                else Color(0xFFFBF3ED), // Normal background
                 RoundedCornerShape(12.dp)
             )
             .padding(12.dp)
@@ -195,7 +194,7 @@ fun PlayerIndicators(name: String, symbol: String, isActive: Boolean, symbolColo
         Text(
             text = name,
             style = MaterialTheme.typography.titleMedium,
-            color = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+            color = if (isActive) Color(0xFFFF7B7B) else Color(0xFF7B4F50)
         )
         Spacer(modifier = Modifier.height(7.dp))
         Image(
