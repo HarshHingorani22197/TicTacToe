@@ -1,3 +1,4 @@
+import android.widget.Toast
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -28,6 +29,7 @@ fun Vs_Comp(navController: NavController) {
     var playerX by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current // Context for Toast
 
     // Typing Effect for Title
     var displayedText by remember { mutableStateOf("") }
@@ -37,7 +39,7 @@ fun Vs_Comp(navController: NavController) {
         displayedText = ""
         for (i in fullText.indices) {
             displayedText = fullText.substring(0, i + 1)
-            delay(200)
+            delay(150)
         }
     }
 
@@ -75,11 +77,12 @@ fun Vs_Comp(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Rotating Logo
             Box(
                 modifier = Modifier
                     .size(160.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFFF7B7B).copy(alpha = 0.2f)) // Light Transparent Red
+                    .background(Color(0xFFFF7B7B).copy(alpha = 0.2f))
                     .border(4.dp, Color(0xFFFF7B7B), CircleShape)
                     .clickable {
                         coroutineScope.launch {
@@ -104,37 +107,30 @@ fun Vs_Comp(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             // Player Name Input Field
-//            Text(
-//                text = "Enter Your Name",
-//                style = MaterialTheme.typography.titleLarge.copy(fontSize = 22.sp),
-//                color = Color(0xFF7B4F50)
-//            )
-//
-//            Spacer(modifier = Modifier.height(16.dp))
-//
-//            OutlinedTextField(
-//                value = playerX,
-//                onValueChange = { playerX = it },
-//                label = { Text("Player Name") },
-//                singleLine = true,
-//                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-//                keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-//                modifier = Modifier.fillMaxWidth()
-//            )
             Text(
                 text = "Enter Your Name",
                 color = Color(0xFF7B4F50),
                 style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
-                modifier = Modifier.align(Alignment.Start) // Align label to the left
+                modifier = Modifier.align(Alignment.Start)
             )
+
             OutlinedTextField(
                 value = playerX,
-                onValueChange =  { playerX = it },
-                placeholder = { Text("Enter name", color = Color.LightGray) },
+                onValueChange = {
+                    if (it.length <= 10) {
+                        playerX = it
+                    } else {
+                        Toast.makeText(context, "Maximum 10 characters allowed", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                placeholder = { Text("Enter name", color = Color.LightGray)},
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start), // Ensures left alignment
+                textStyle = LocalTextStyle.current.copy(
+                    textAlign = TextAlign.Start,
+                    color = Color.Black // Ensure text appears in black
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)

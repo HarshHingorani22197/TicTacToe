@@ -1,3 +1,4 @@
+import android.widget.Toast
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -23,12 +24,14 @@ import kotlinx.coroutines.launch
 import com.example.ticktacktoe.R
 import androidx.navigation.NavController
 
+
 @Composable
 fun Two_player(navController: NavController) {
     var playerX by remember { mutableStateOf("") }
     var playerO by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     // Typing Effect for Title
     var displayedText by remember { mutableStateOf("") }
@@ -115,12 +118,22 @@ fun Two_player(navController: NavController) {
                     )
                     OutlinedTextField(
                         value = if (label == "Player X") playerX else playerO,
-                        onValueChange = { if (label == "Player X") playerX = it else playerO = it },
+                        onValueChange = {
+                            if (it.length <= 10) {
+                                if (label == "Player X") playerX = it else playerO = it
+                            }
+                            else{
+                                Toast.makeText(context, "Maximum 10 characters allowed", Toast.LENGTH_SHORT).show()
+                            }
+                        },
                         placeholder = { Text("Enter name", color = Color.LightGray) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                         keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start), // Ensures left alignment
+                        textStyle = LocalTextStyle.current.copy(
+                            textAlign = TextAlign.Start,
+                            color = Color.Black // Ensure text appears in black
+                        ),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp)
