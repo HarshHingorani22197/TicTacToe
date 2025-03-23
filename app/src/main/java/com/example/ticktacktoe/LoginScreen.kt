@@ -178,6 +178,49 @@ fun LoginScreen(navController: NavController) {
                     color = Color.White
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Start Computer Game Button
+            Button(
+                onClick = {
+                    playerX = if (playerX.isNotEmpty()) playerX else "Player"
+                    navController.navigate("computerGameScreen/guneet")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .shadow(8.dp, RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(12.dp)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
+            ) {
+                Text(
+                    text = "Play Against Computer",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Start Computer Game Button
+            Button(
+                onClick = {
+                    playerX = if (playerX.isNotEmpty()) playerX else "Player"
+                    navController.navigate("computerGameScreenInf/guneet")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .shadow(8.dp, RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(12.dp)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7B7B))
+            ) {
+                Text(
+                    text = "Play Infinite Against Computer",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
+                    color = Color.White
+                )
+            }
         }
     }
 }
