@@ -6,6 +6,11 @@
 </div>
 
 ![image1](TicTacToeImages/img1.jpg)
+![image2](TicTacToeImages/img2.jpg)
+![image3](TicTacToeImages/img3.jpg)
+![image4](TicTacToeImages/img4.jpg)
+![image5](TicTacToeImages/img5.jpg)
+![image6](TicTacToeImages/img6.jpg)
 
 
 ## Introduction
