@@ -1,11 +1,11 @@
 # Tic Tac Toe Game
 
 <div style="display: flex; align-items: center;">
-  <img src="[https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Tic_tac_toe_gameboard.svg/500px-Tic_tac_toe_gameboard.svg.png](https://www.flaticon.com/free-icon/tic-tac-toe_5791753)" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
-  <span style="font-size: 48px; font-weight: bold;">.   .   .</span>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Tic-Tac-Toe_Mark.svg" alt="Tic Tac Toe Symbol" height="125" style="margin-left: 20px;">
-  <span style="font-size: 48px; font-weight: bold;">.   .   .</span>
+  <img src="https://github.com/Guneet-Pal-Singh/TickTackToe/raw/502079994b5600f80e900bfb8b80494367a26796/TicTacToeImages/logo.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
+  <span style="font-size: 48px; font-weight: bold;"></span>
 </div>
+
+
 
 ## Introduction
 
