@@ -49,7 +49,7 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 Watch a gameplay video to see Tic Tac Toe in action:
 
-https://github.com/user-attachments/assets/b966e8f4-492b-42e9-9697-97531a3917f8
+https://github.com/user-attachments/assets/140504c7-172c-4337-a1d7-8f470c0509fd
 
 
 ---
