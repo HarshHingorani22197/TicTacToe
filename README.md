@@ -1,5 +1,3 @@
-# Tic Tac Toe Game
-
 <p align="center">
   <img src="https://github.com/Guneet-Pal-Singh/TickTackToe/raw/502079994b5600f80e900bfb8b80494367a26796/TicTacToeImages/logo.png" height="125"/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
