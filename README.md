@@ -2,7 +2,7 @@
 
 <div style="display: flex; align-items: center;">
   <img src="https://github.com/Guneet-Pal-Singh/TickTackToe/raw/502079994b5600f80e900bfb8b80494367a26796/TicTacToeImages/logo.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
-  <span style="font-size: 48px; font-weight: bold;">Tic Tac Toe</span>
+  <img src="https://github.com/Guneet-Pal-Singh/TicTacToe/blob/eb47d0a27a3eb51e7d33625b7b675929952f5b69/TicTacToeImages/text_tictactoe.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
 </div>
 
 ## Introduction
