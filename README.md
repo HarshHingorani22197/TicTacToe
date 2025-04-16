@@ -5,7 +5,7 @@
   <span style="font-size: 48px; font-weight: bold;"></span>
 </div>
 
-![image1](TicTacToeImages/img1.png)
+![image1](TicTacToeImages/img1.jpg)
 
 
 ## Introduction
