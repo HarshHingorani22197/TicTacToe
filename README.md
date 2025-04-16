@@ -36,6 +36,7 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
   <img src="TicTacToeImages/img4.jpg" alt="Screenshot 4" width="200" style="border-radius: 8px;">
   <img src="TicTacToeImages/img5.jpg" alt="Screenshot 5" width="200" style="border-radius: 8px;">
   <img src="TicTacToeImages/img6.jpg" alt="Screenshot 6" width="200" style="border-radius: 8px;">
+  <img src="TicTacToeImages/img7.jpg" alt="Screenshot 7" width="200" style="border-radius: 8px;">
 </div>
 
 ---
