@@ -47,14 +47,15 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 ### Video
 
+### Video
+
 Watch a gameplay video to see Tic Tac Toe in action:
 
-<div style="display: flex; align-items: center;">
-    <a href="">
-        <img src="https://github.com/theshamiksinha/StickHero-Game-JavaFX/raw/main/src/main/resources/Images/PlayButtonPNG.png" alt="Gameplay Video" width="100" style="margin-right: 10px;">
-    </a>
-    <span> Press the button to watch a video of the gameplay on YouTube</span>
-</div>
+<video width="600" controls style="border-radius: 12px; display: block; margin: 20px auto;">
+  <source src="TicTacToeImages/vid1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 
 ---
 
