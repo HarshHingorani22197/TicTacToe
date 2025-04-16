@@ -1,8 +1,8 @@
 # Tic Tac Toe Game
 
 <div style="display: flex; align-items: center;">
-  <img src="https://github.com/Guneet-Pal-Singh/TickTackToe/raw/502079994b5600f80e900bfb8b80494367a26796/TicTacToeImages/logo.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
-  <img src="https://github.com/Guneet-Pal-Singh/TicTacToe/blob/34a7500fd3ece3db47d34f86d09ae0dcc2b785ed/TicTacToeImages/text_tictactoe-removebg-preview.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;">
+  <img src="https://github.com/Guneet-Pal-Singh/TickTackToe/raw/502079994b5600f80e900bfb8b80494367a26796/TicTacToeImages/logo.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;"><span style="font-size: 48px; font-weight: bold;">    </span>
+  <img src="https://github.com/Guneet-Pal-Singh/TicTacToe/blob/34a7500fd3ece3db47d34f86d09ae0dcc2b785ed/TicTacToeImages/text_tictactoe-removebg-preview.png" alt="Tic Tac Toe Logo" height="125" style="margin-right: 20px;"><span style="font-size: 48px; font-weight: bold;">    </span>
 </div>
 
 ## Introduction
