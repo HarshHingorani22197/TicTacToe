@@ -49,10 +49,7 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 Watch a gameplay video to see Tic Tac Toe in action:
 
-<video width="600" controls style="border-radius: 12px; display: block; margin: 20px auto;">
-  <source src="TicTacToeImages/vid1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/b966e8f4-492b-42e9-9697-97531a3917f8
 
 
 ---
