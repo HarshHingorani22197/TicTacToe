@@ -29,7 +29,7 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 ### Images
 
-<div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+<div style="display: flex; flex-wrap: wrap; gap: 50px; justify-content: center;">
   <img src="TicTacToeImages/img1.jpg" alt="Screenshot 1" width="200" style="border-radius: 8px;">
   <img src="TicTacToeImages/img2.jpg" alt="Screenshot 2" width="200" style="border-radius: 8px;">
   <img src="TicTacToeImages/img3.jpg" alt="Screenshot 3" width="200" style="border-radius: 8px;">
