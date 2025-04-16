@@ -16,7 +16,7 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 ### Game Modes
 
-1. **Single Player Mode:** Play against the computer in a challenging match where you can test your skills against an AI opponent.
+1. **Single Player Mode:** Play against the computer in a challenging match where you can test your skills against the Computer.
 
 2. **Multiplayer Mode:** Play with your friend on the same device, taking turns to see who can win in the ultimate showdown.
 
@@ -28,17 +28,20 @@ Welcome to the Tic Tac Toe game, developed in Android Studio using Kotlin. This 
 
 ---
 
-### Images
+### Game Images
 
-<div style="display: flex; flex-wrap: wrap; gap: 50px; justify-content: center;">
-  <img src="TicTacToeImages/img1.jpg" alt="Screenshot 1" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img2.jpg" alt="Screenshot 2" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img3.jpg" alt="Screenshot 3" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img4.jpg" alt="Screenshot 4" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img5.jpg" alt="Screenshot 5" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img6.jpg" alt="Screenshot 6" width="200" style="border-radius: 8px;">
-  <img src="TicTacToeImages/img7.jpg" alt="Screenshot 7" width="200" style="border-radius: 8px;">
+<div style="display: flex; justify-content: center; gap: 50px; margin-bottom: 20px;">
+  <img src="TicTacToeImages/img1.jpg" width="200" style="border-radius: 8px;">
+  <img src="TicTacToeImages/img8.jpg" width="200" style="border-radius: 8px;">
+  <img src="TicTacToeImages/img2.jpg" width="200" style="border-radius: 8px;">
 </div>
+
+<div style="display: flex; justify-content: center; gap: 50px;">
+  <img src="TicTacToeImages/img3.jpg" width="200" style="border-radius: 8px;">
+  <img src="TicTacToeImages/img4.jpg" width="200" style="border-radius: 8px;">
+  <img src="TicTacToeImages/img6.jpg" width="200" style="border-radius: 8px;">
+</div>
+
 
 ---
 
@@ -61,8 +64,6 @@ Watch a gameplay video to see Tic Tac Toe in action:
 2. **Multiplayer Mode:** Play locally with a friend, taking turns to place your marks on the board.  
 3. **Infinite Game Mode:** You can only have 3 symbols on the board at a time, and the 4th symbol removes your oldest mark, creating a dynamic and strategic game.  
 4. **Classic Tic Tac Toe:** The traditional 3x3 grid with standard rules for matching symbols in a row, column, or diagonal.  
-5. **Timed Rounds:** Choose to play with or without time limits, adding a bit of challenge and excitement.  
-6. **Scoring System:** Track your victories and losses in both modes, and challenge yourself to improve.  
 
 ---
 
@@ -73,7 +74,7 @@ Watch a gameplay video to see Tic Tac Toe in action:
 - **Tap on a cell** to place your symbol (X or O) in that spot.
 - **Single Player Mode:** Play against the computer; the computer will automatically make its move after you.
 - **Multiplayer Mode:** Take turns with your friend, tapping on the cells to place your symbols.
-- **Infinite Game Mode:** Remember, you can only have 3 symbols on the board at a time. Plan ahead and remove your oldest symbol when you play your 4th turn.
+- **Infinite Game Mode:** You can only have three symbols on the board at a time. When you place your fourth symbol, your oldest symbol is automatically removed, so think ahead and play strategically to outsmart your opponent.
 
 ### Game Objective
 
